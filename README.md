@@ -34,7 +34,7 @@
 | area_id          | integer    | null: false       |
 | delivery_date_id | integer    | null: false       |
 | price            | integer    | null: false       |
-| user_id          | references | foreign_key: true |
+| user             | references | foreign_key: true |
 
 ### Association
 
