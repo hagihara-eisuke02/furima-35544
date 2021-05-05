@@ -9,7 +9,7 @@ class User < ApplicationRecord
     validates :birthday
     validates :password,  length: { minimum: 6 }, format: {with: /\A[a-zA-Z0-9]+\z/}
   end
-  with_options presence: true, format: {with: /\A[ぁ-んァ-ン一-龥]/ } do
+  with_options presence: true, format: {with: /\A[ぁ-んァ-ン一-龥々ー]+\z/ } do
     validates :last_name
     validates :first_name
   end
