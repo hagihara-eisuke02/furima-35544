@@ -123,28 +123,38 @@
   <%# 商品一覧 %>
   <div class='item-contents'>
     <h2 class='title'>ピックアップカテゴリー</h2>
-    <%= link_to '新規投稿商品', "#", class: "subtitle" %>
+    <%= link_to '新規投稿商品', new_item_path, method: :get,  class: "subtitle" %>
     <ul class='item-lists'>
 
-      <%# 商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
-      <li class='list'>
-        <%= link_to "#" do %>
-        <div class='item-img-content'>
-          <%= image_tag "item-sample.png", class: "item-img" %>
+      <% @items.each do |item| %>
 
-          <%# 商品が売れていればsold outを表示しましょう %>
+      <li class='list'>
+        <%= link_to items_path(item.id), method: :get do %>
+        <div class='item-img-content'>
+          <%= image_tag item.image, class: "item-img" %>
+          
+          <% if item.record.present? %>
           <div class='sold-out'>
             <span>Sold Out!!</span>
           </div>
-          <%# //商品が売れていればsold outを表示しましょう %>
+          <% end %>
 
         </div>
         <div class='item-info'>
           <h3 class='item-name'>
-            <%= "商品名" %>
+            <%= item.item_name %>
           </h3>
           <div class='item-price'>
-            <span><%= "販売価格" %>円<br><%= '配送料負担' %></span>
+            <span><%= item.price %>円<br>
+
+            <% if item.shipping_fee_id == 2 %>
+            着払い(購入者負担)
+            <% end %>
+            <% if item.shipping_fee_id == 3 %>
+            送料込み(出品者負担)
+            <% end %>
+
+            </span>
             <div class='star-btn'>
               <%= image_tag "star.png", class:"star-icon" %>
               <span class='star-count'>0</span>
@@ -152,11 +162,10 @@
           </div>
         </div>
         <% end %>
+        <% end %>
       </li>
-      <%# //商品のインスタンス変数になにか入っている場合、中身のすべてを展開できるようにしましょう %>
 
-      <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
-      <%# 商品がある場合は表示されないようにしましょう %>
+      <% if @items.empty? %>
       <li class='list'>
         <%= link_to '#' do %>
         <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %>
@@ -173,14 +182,13 @@
           </div>
         </div>
         <% end %>
+        <% end %>
       </li>
-      <%# //商品がある場合は表示されないようにしましょう %>
-      <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
     </ul>
   </div>
   <%# /商品一覧 %>
 </div>
-<%= link_to(new_item_path, class: 'purchase-btn') do %>
+<%= link_to new_item_path, method: :get, class: 'purchase-btn'  do %>
   <span class='purchase-btn-text'>出品する</span>
   <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
 <% end %>
