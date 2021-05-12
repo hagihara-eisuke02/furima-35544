@@ -75,6 +75,12 @@ RSpec.describe RecordAddress, type: :model do
       expect(@record_address.errors.full_messages).to include('Phone number is invalid')
     end
 
+    it '電話番号は英数混合では登録きないこと' do
+      @record_address.phone_number = '1234569999aa'
+      @record_address.valid?
+      expect(@record_address.errors.full_messages).to include('Phone number is invalid')
+    end
+
     it 'tokenが入力されていないと購入できない' do
       @record_address.token = ''
       @record_address.valid?
