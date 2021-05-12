@@ -52,6 +52,8 @@ class ItemsController < ApplicationController
   end
 
   def cheak_user
-    redirect_to root_path if current_user.id != @item.user.id
+    if current_user.id != @item.user.id || @item.record.present?
+      redirect_to root_path
+    end
   end
 end
