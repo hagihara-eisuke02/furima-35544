@@ -9,8 +9,8 @@ FactoryBot.define do
     first_name { person.first.kanji }
     first_name_kana { person.first.katakana }
     email { Faker::Internet.free_email }
-    password { '1a' + Faker::Internet.password(min_length: 5) }
-    password_confirmation { password }
+    password              { 'ss11111' }
+    password_confirmation { 'ss11111' }
     birthday { Faker::Date.birthday }
   end
 end
